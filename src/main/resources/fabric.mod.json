@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "dragons-cards",
+	"version": "${version}",
+	"name": "Dragon's Cards",
+	"description": "...",
+	"authors": [
+		"Smok419"
+	],
+	"contact": {
+		"sources": "https://github.com/DanilMK/macrofactory"
+	},
+	"license": "MIT",
+	"icon": "assets/dragons-cards/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.smok.DragonsCards"
+		],
+		"client": [
+			"net.smok.DragonsCardsClient"
+		]
+	},
+	"mixins": [
+		"dragons-cards.mixins.json",
+		{
+			"config": "dragons-cards.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
