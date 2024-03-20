@@ -14,6 +14,9 @@
 	"icon": "assets/dragons-cards/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"fabric-datagen": [
+          "net.smok.resources.DragonCardsDataGenerator"
+		],
 		"main": [
 			"net.smok.DragonsCards"
 		],

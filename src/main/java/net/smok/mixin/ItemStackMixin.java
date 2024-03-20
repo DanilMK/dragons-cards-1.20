@@ -7,17 +7,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.smok.Card;
-import net.smok.CardGame;
-import net.smok.CardLibrary;
-import org.jetbrains.annotations.Nullable;
+import net.smok.cards.Card;
+import net.smok.cards.CardGame;
+import net.smok.cards.CardLibrary;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(ItemStack.class)

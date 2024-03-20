@@ -1,4 +1,4 @@
-package net.smok;
+package net.smok.cards;
 
 import net.minecraft.entity.player.PlayerInventory;
 import org.jetbrains.annotations.Nullable;
