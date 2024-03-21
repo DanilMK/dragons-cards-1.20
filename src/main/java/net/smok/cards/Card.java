@@ -1,5 +1,6 @@
 package net.smok.cards;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.smok.DragonsCards;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Card {
@@ -21,14 +23,15 @@ public class Card {
     private String description = "";
     private int value = 0;
     private Rarity rarity = Rarity.COMMON;
+    private final HashSet<String> tags = new HashSet<>();
 
     public Card(String cardId, CardCollection collection) {
-        identifier = new Identifier(DragonsCards.MOD_ID, toValidIdentifier(collection.getName()) + "/" + toValidIdentifier(cardId));
+        identifier = new Identifier(toValidIdentifier(collection.getName()), toValidIdentifier(cardId));
         displayName = cardId;
     }
 
     public Card(String cardId, CardCollection collection, JsonElement json) {
-        identifier = new Identifier(DragonsCards.MOD_ID, toValidIdentifier(collection.getName()) + "/" + cardId);
+        identifier = new Identifier(toValidIdentifier(collection.getName()),  cardId);
         JsonObject jsonObject = json.getAsJsonObject();
 
         if (jsonObject.has("description")) description = jsonObject.get("description").getAsString();
@@ -36,6 +39,10 @@ public class Card {
         else displayName = identifier.getPath();
         if (jsonObject.has("rarity")) rarity = Rarity.valueOf(jsonObject.get("rarity").getAsString());
         if (jsonObject.has("value")) value = jsonObject.get("value").getAsInt();
+        if (jsonObject.has("tags")) {
+            JsonArray tagsArray = jsonObject.getAsJsonArray("tags");
+            for (JsonElement tagJson : tagsArray) tags.add(tagJson.getAsString());
+        }
     }
 
     public Card(String cardId, CardCollection collection, String displayName) {
@@ -104,8 +111,13 @@ public class Card {
         JsonObject json = new JsonObject();
         json.addProperty("displayName", displayName);
         if (!description.isEmpty()) json.addProperty("description", description);
-        json.addProperty("rarity", rarity.name());
-        json.addProperty("value", value);
+        if (rarity != Rarity.COMMON) json.addProperty("rarity", rarity.name());
+        if (value != 0) json.addProperty("value", value);
+        if (tags.size() != 0) {
+            JsonArray array = new JsonArray();
+            for (String tag : tags) array.add(tag);
+            json.add("tags", array);
+        }
         return json;
     }
 

@@ -19,21 +19,16 @@ public class DragonCardsDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
         FabricDataGenerator.Pack pack = generator.createPack();
 
-        pack.addProvider(RandomGenerator::new);
-        //pack.addProvider(RandomCraftGenerator::new);
+        pack.addProvider(CardCollectionDataProvider::new);
 
     }
 
-    private static class RandomGenerator implements DataProvider {
+    private static class CardCollectionDataProvider implements DataProvider {
 
-        private final FabricDataOutput output;
-        private final CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture;
         private final DataOutput.PathResolver pathResolver;
 
-        public RandomGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+        public CardCollectionDataProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 
-            this.output = output;
-            this.registriesFuture = registriesFuture;
             this.pathResolver = output.getResolver(DataOutput.OutputType.DATA_PACK, "cards");
         }
 
@@ -54,7 +49,7 @@ public class DragonCardsDataGenerator implements DataGeneratorEntrypoint {
 
         @Override
         public String getName() {
-            return null;
+            return "CardCollection";
         }
     }
 }
