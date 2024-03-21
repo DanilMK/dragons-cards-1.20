@@ -2,6 +2,8 @@ package net.smok.cards;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -107,6 +109,10 @@ public class Card {
         return json;
     }
 
+    public NbtCompound addToNbt(NbtCompound nbtCompound) {
+        nbtCompound.putString("Card", identifier.toString());
+        return nbtCompound;
+    }
 
     // todo add builder with packets
 }

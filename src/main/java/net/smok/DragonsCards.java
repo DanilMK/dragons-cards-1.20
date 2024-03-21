@@ -1,7 +1,7 @@
 package net.smok;
 
 import net.fabricmc.api.ModInitializer;
-
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.smok.resources.DragonCardsResourceManager;
@@ -15,5 +15,7 @@ public class DragonsCards implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new DragonCardsResourceManager());
+		CommandRegistrationCallback.EVENT.register(new SetCardCommand());
 	}
+
 }

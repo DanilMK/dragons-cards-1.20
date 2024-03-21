@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class CardLibrary {
     private static final HashMap<Identifier, CardCollection> collections = new HashMap<>();
@@ -32,11 +33,21 @@ public class CardLibrary {
         //DragonsCards.LOGGER.info("Successful registered card! '"+card.getIdentifier()+"'");
 
     }
+    @Nullable
+    public static Card findCardById(@Nullable Identifier id) {
+        return allCards.get(id);
+    }
 
     @Nullable
     public static Card findCardByName(@NotNull String itemName) {
         if (!Identifier.isValid(itemName)) return null;
-        return allCards.get(new Identifier(itemName));
+        String[] nameSplit = itemName.split(":");
+        if (nameSplit.length == 0 || nameSplit.length == 1) return allCards.get(new Identifier(DragonsCards.MOD_ID, itemName));
+        if (nameSplit.length == 2) return allCards.get(new Identifier(nameSplit[0], nameSplit[1]));
+        return null;
     }
 
+    public static Set<Identifier> getAllIds() {
+        return allCards.keySet();
+    }
 }
