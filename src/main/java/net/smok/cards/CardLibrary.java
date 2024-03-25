@@ -50,4 +50,12 @@ public class CardLibrary {
     public static Set<Identifier> getAllIds() {
         return allCards.keySet();
     }
+
+    public static Set<Identifier> getAllCollectionIds() {
+        return collections.keySet();
+    }
+
+    public static CardCollection findCollectionById(Identifier value) {
+        return collections.get(value);
+    }
 }

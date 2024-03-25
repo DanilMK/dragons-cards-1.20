@@ -16,6 +16,7 @@ public class DragonsCards implements ModInitializer {
 	public void onInitialize() {
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new DragonCardsResourceManager());
 		CommandRegistrationCallback.EVENT.register(new SetCardCommand());
+		CommandRegistrationCallback.EVENT.register(new SetPackCommand());
 	}
 
 }

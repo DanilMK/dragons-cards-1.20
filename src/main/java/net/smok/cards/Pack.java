@@ -1,20 +1,34 @@
 package net.smok.cards;
 
+import net.minecraft.text.Text;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
 public class Pack {
 
-    private String name = "";
     private List<Card> cards = new ArrayList<>();
     private int maxSize = 1000;
+
+    public Pack() {}
+
+    public Pack(int maxSize) {
+        this.maxSize = maxSize;
+    }
+
+    public Pack(CardCollection collection) {
+        cards = new ArrayList<>(collection.all());
+        maxSize = cards.size();
+    }
 
     public boolean contains(Card card) {
         return cards.contains(card);
     }
 
-    public boolean add(Card card){
+    public boolean add(Card card) {
         if (cards.size() >= maxSize) return false;
         cards.add(card);
         return true;
@@ -48,5 +62,24 @@ public class Pack {
 
     public void move(List<Card> moveCards, Pack from) {
         for (Card card : moveCards) if (add(card)) from.take(card);
+    }
+
+    public List<Card> getAll() {
+        return cards;
+    }
+
+    public int getMaxSize() {
+        return maxSize;
+    }
+
+    @NotNull
+    public List<Text> getTooltip()  {
+        List<Text> textList = new ArrayList<>();
+        for (Card card : cards) textList.add(Text.of(card.getDisplayName()));
+        return textList;
+    }
+
+    public void sort() {
+        cards.sort(Comparator.naturalOrder());
     }
 }

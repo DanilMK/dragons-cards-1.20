@@ -3,20 +3,18 @@ package net.smok.cards;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.smok.DragonsCards;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class Card {
+public class Card implements Comparable<Card> {
     // todo make two textures of card
     private final Identifier identifier;
     private String displayName;
@@ -113,7 +111,7 @@ public class Card {
         if (!description.isEmpty()) json.addProperty("description", description);
         if (rarity != Rarity.COMMON) json.addProperty("rarity", rarity.name());
         if (value != 0) json.addProperty("value", value);
-        if (tags.size() != 0) {
+        if (!tags.isEmpty()) {
             JsonArray array = new JsonArray();
             for (String tag : tags) array.add(tag);
             json.add("tags", array);
@@ -124,6 +122,13 @@ public class Card {
     public NbtCompound addToNbt(NbtCompound nbtCompound) {
         nbtCompound.putString("Card", identifier.toString());
         return nbtCompound;
+    }
+
+    @Override
+    public int compareTo(@NotNull Card other) {
+        if (this.value < other.value) return -1;
+        if (this.value > other.value) return 1;
+        return identifier.compareTo(other.identifier);
     }
 
     // todo add builder with packets
