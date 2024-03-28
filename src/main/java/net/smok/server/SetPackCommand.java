@@ -1,4 +1,4 @@
-package net.smok;
+package net.smok.server;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
